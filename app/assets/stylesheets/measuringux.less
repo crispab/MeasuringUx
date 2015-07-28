@@ -1,0 +1,158 @@
+@import "lib/bootstrap/less/bootstrap.less";
+
+// Overriding some Bootstrap stuff
+@icon-font-path: "/webjars/bootstrap/3.3.4/fonts/";
+@link-hover-color: lighten(@link-color, 15%);
+@navbar-height: 36px;
+@navbar-padding-vertical: ceil((@navbar-height - @line-height-computed) / 2)+1;
+@breadcrumb-padding-horizontal: 0;
+@breadcrumb-bg: transparent;
+@breadcrumb-color: @text-color;
+@breadcrumb-active-color: @text-color;
+@breadcrumb-separator: "»";
+@font-size-h4: ceil((@font-size-base * 1.1));
+@blockquote-font-size: @font-size-base;
+@code-color: @text-color;
+@code-bg: transparent;
+
+
+
+
+.navbar-brand {
+  font-family: @headings-font-family;
+}
+
+.navbar {
+  margin-bottom: 0;
+  border: 0;
+}
+
+.navbar-nav > li > a {
+  border-radius: @border-radius-base @border-radius-base 0 0;
+}
+
+body {
+  margin-top: 4px;
+}
+
+.breadcrumb-row {
+  border-bottom: @hr-border solid 2px;
+  margin-bottom: 18px;
+}
+
+.breadcrumb {
+  margin-bottom: 0;
+}
+
+h4 {
+  margin-bottom: (@line-height-computed / 4);
+}
+
+
+
+// From here on, measuringux specific stuff
+
+
+@footerBackground: @gray;
+
+
+.show-on-error {
+  display: none;
+}
+
+.has-error .show-on-error {
+  display: inline-block;
+  color: @state-danger-text;
+}
+
+
+.navigation-divider {
+  min-height: 4px;
+  background-color: @navbar-default-link-active-bg;
+}
+
+.footer {
+  margin-top: 100px;
+  min-height: 53px;
+  background: @footerBackground;
+}
+
+.footer-logo {
+}
+
+.xlarge-space-berfore {
+  margin-top: 3 * @line-height-computed
+}
+
+.large-space-berfore {
+  margin-top: 2 * @line-height-computed
+}
+
+.space-berfore {
+  margin-top: @line-height-computed
+}
+
+.small-space-berfore {
+  margin-top: (@line-height-computed / 4)
+}
+
+pre {
+  overflow-x: auto;
+}
+
+pre code {
+  word-wrap: normal;
+  white-space: pre;
+}
+
+
+.input-group {
+  background: @input-bg;
+  border: @input-border;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 3px;
+  padding: 9px;
+  margin-bottom: 20px;
+}
+
+
+.btn-facebook {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  width: 34px;
+  height: 34px;
+  padding: 12px;
+  padding-left: 44px;
+  background: #3b55a0 no-repeat url(/assets/images/facebook.png);
+  text-align: left;
+  font-size: 17px;
+  background-position: 6px 50%;
+  color: white;
+  text-decoration: none;
+
+  &:hover,
+  &:focus {
+    color: white;
+    text-decoration: none;
+  }
+}
+
+.btn-google {
+  font-family: Roboto, sans-serif;
+  width: 34px;
+  height: 34px;
+  padding: 12px;
+  padding-left: 44px;
+  background: #dd4b39 no-repeat url(/assets/images/google.png);
+  text-align: left;
+  font-size: 17px;
+  background-position: 6px 50%;
+  color: white;
+  text-decoration: none;
+
+  &:hover,
+  &:focus {
+    color: white;
+    text-decoration: none;
+  }
+}
