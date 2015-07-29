@@ -10,7 +10,6 @@ libraryDependencies ++= Seq(
   "org.webjars" %% "webjars-play" % "2.4.0-1",
   "org.webjars" % "jquery" % "2.1.4",
   "org.webjars" % "bootstrap" % "3.3.5",
-  "org.webjars" % "font-awesome" % "4.3.0-4",
   "org.webjars" % "chartjs" % "1.0.2",
   javaJdbc,
   cache,
