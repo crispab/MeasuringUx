@@ -1,0 +1,46 @@
+@()
+
+@page() {
+  <script type='text/javascript'>
+    var data = {
+      labels: [
+        "Användbarhet",
+        "Användarvänlighet",
+        "Yttre effektivitet",
+        "Inre effektivitet",
+        "Tillfredsställande",
+        "Mognadsgrad",
+        "Felhantering",
+        "Gemytlighet",
+        "Följdriktighet",
+        "Enkelhet",
+        "Lärbarhet",
+        "Tillförsikt"
+      ],
+      datasets: [
+        {
+          label: "",
+          fillColor: "rgba(220,220,220,0)",
+          strokeColor: "rgba(220,220,220,0)",
+          pointColor: "rgba(220,220,220,0)",
+          pointStrokeColor: "#fff",
+          pointHighlightFill: "#fff",
+          pointHighlightStroke: "rgba(220,220,220,0)",
+          data: [6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6]
+        }
+      ]
+    };
+
+    Chart.defaults.global.responsive = true;
+    Chart.defaults.global.scaleShowLabels = false;
+    Chart.defaults.global.showTooltips = false;
+
+    var ctx = $("#uxChart").get(0).getContext("2d");
+    var radarChart = new Chart(ctx).Radar(
+      data, {
+        pointLabelFontFamily : "arial, verdana, sans-serif",
+        pointLabelFontSize : 16
+      }
+    );
+  </script>
+}

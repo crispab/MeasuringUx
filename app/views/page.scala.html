@@ -1,0 +1,53 @@
+@(spreadsheetUrl: String = "")(body: Html)
+
+<!DOCTYPE html>
+<html lang="sv">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Measuring UX</title>
+    <link rel="shortcut icon" href='@routes.Assets.versioned("images/crisp-favicon.png")'>
+    <link rel="stylesheet" href='@routes.Assets.versioned("stylesheets/crisp-bootstrap.css")'>
+    <script type='text/javascript' src='@routes.Assets.versioned("lib/jquery/jquery.min.js")'></script>
+    <script type='text/javascript' src='@routes.Assets.versioned("lib/bootstrap/js/bootstrap.min.js")'></script>
+    <script type='text/javascript' src='@routes.Assets.versioned("lib/chartjs/Chart.js")'></script>
+  </head>
+  <body>
+    <div class="container">
+      <h1>MeasuringUx</h1>
+      <form class="max-width form-inline" action="@routes.Application.submit()" method="post">
+        <label for="spreadsheetUrl" class="pull-left small-space-berfore">Google kalkylark: </label>
+        <button type="submit" class="btn btn-primary pull-right">Läs in</button>
+        <div class="fill-remainder">
+          <input type="url" class="form-control" id="spreadsheetUrl" placeholder="https://docs.google.com/..." value="@spreadsheetUrl">
+        </div>
+      </form>
+
+      <div class="panel panel-default large-space-berfore">
+        <div class="panel-heading">
+          <h3 class="panel-title">Crisps användbarhetsutvärdering</h3>
+        </div>
+        <div class="panel-body">
+          <canvas id="uxChart"></canvas>
+        </div>
+      </div>
+
+      @body
+    </div>
+
+    <footer>
+      <div class="footer">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="footer-logo"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+  </body>
+</html>
