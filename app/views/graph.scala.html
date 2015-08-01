@@ -1,6 +1,6 @@
-@(spreadsheetUrl: String)
+@(spreadsheetUrl: Url)
 
-@page(spreadsheetUrl) {
+@page(spreadsheetUrl.getUrl) {
   <script type='text/javascript'>
     var data = {
       labels: [

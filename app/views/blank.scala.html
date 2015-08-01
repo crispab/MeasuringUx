@@ -1,6 +1,6 @@
-@()
+@(errorMessage: Option[String] = None)
 
-@page() {
+@page(errorMessage = errorMessage) {
   <script type='text/javascript'>
     var data = {
       labels: [
