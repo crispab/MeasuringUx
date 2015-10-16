@@ -1,49 +1,22 @@
-@(spreadsheetUrl: Url, data: UxData)
+@(spreadsheetUrl: Url, uxData: UxData)
 
 @page(spreadsheetUrl.getUrl) {
 
-  <!--
-    // TODO: use 'data' instead of hard coded dummy data
-    // TODO: Wrap UxData in a PresentationData that also includes color scheme and has a toJson()
-    @data.toString
-  -->
-
   <script type='text/javascript'>
     var data = {
-      labels: [
-        "Användbarhet",
-        "Användarvänlighet",
-        "Yttre effektivitet",
-        "Inre effektivitet",
-        "Tillfredsställande",
-        "Mognadsgrad",
-        "Felhantering",
-        "Gemytlighet",
-        "Följdriktighet",
-        "Enkelhet",
-        "Lärbarhet",
-        "Tillförsikt"
-      ],
+      labels: @Html(play.libs.Json.toJson(uxData.getLabels).toString),
       datasets: [
-        {
-          label: "Experter",
-          fillColor: "rgba(212,149, 28,0.5)",
-          strokeColor: "rgba(212,149, 28,1)",
-          pointColor: "rgba(212,149, 28,1)",
-          pointStrokeColor: "#fff",
-          pointHighlightFill: "#fff",
-          pointHighlightStroke: "rgba(212,149, 28,1)",
-          data: [6, 6, 7, 7, 5, 5, 4, 6, 7, 7, 4, 3]
-        },
-        {
-          label: "Nybörjare",
-          fillColor: "rgba( 50,177, 24,0.5)",
-          strokeColor: "rgba( 50,177, 24,1)",
-          pointColor: "rgba( 50,177, 24,1)",
-          pointStrokeColor: "#fff",
-          pointHighlightFill: "#fff",
-          pointHighlightStroke: "rgba( 50,177, 24,1)",
-          data: [2, 4, 4, 2, 5, 3, 7, 4, 1, 7, 3, 5]
+        @for(label <- uxData.getDataRows.keySet()) {
+          {
+            label: "@label",
+            data: @Html(play.libs.Json.toJson(uxData.getDataRows.get(label)).toString),
+            fillColor: "rgba(212,149, 28,0.5)",
+            strokeColor: "rgba(212,149, 28,1)",
+            pointColor: "rgba(212,149, 28,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(212,149, 28,1)"
+          },
         }
       ]
      };
