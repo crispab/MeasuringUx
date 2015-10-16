@@ -1,6 +1,13 @@
-@(spreadsheetUrl: Url)
+@(spreadsheetUrl: Url, data: UxData)
 
 @page(spreadsheetUrl.getUrl) {
+
+  <!--
+    // TODO: use 'data' instead of hard coded dummy data
+    // TODO: Wrap UxData in a PresentationData that also includes color scheme and has a toJson()
+    @data.toString
+  -->
+
   <script type='text/javascript'>
     var data = {
       labels: [

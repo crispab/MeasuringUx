@@ -1,13 +1,20 @@
 package controllers;
 
 import models.Url;
+import models.UxData;
 import play.mvc.Controller;
 import play.mvc.Result;
 import scala.Option;
+import services.FakeUxDataSource;
+import services.GoogleUxDataSource;
+import services.UxDataSource;
 import views.html.blank;
 import views.html.graph;
 
+
 public class Application extends Controller {
+
+  UxDataSource spreadsheetService = new GoogleUxDataSource();
 
   public Result show(String spreadsheetUrl) {
     if (isPresent(spreadsheetUrl)) {
@@ -24,7 +31,8 @@ public class Application extends Controller {
   private Result showGraph(String spreadsheetUrl) {
     Url url = new Url(spreadsheetUrl);
     if(url.isValid()) {
-      return ok(graph.render(url));
+      UxData data = spreadsheetService.readUxData(url);
+      return ok(graph.render(url, data));
     } else {
       return badRequest(blank.render(Option.apply(url.getValidationError())));
     }
