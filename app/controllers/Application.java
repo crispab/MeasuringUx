@@ -5,8 +5,7 @@ import models.UxData;
 import play.mvc.Controller;
 import play.mvc.Result;
 import scala.Option;
-import services.FakeUxDataSource;
-import services.GoogleUxDataSource;
+import services.GoogleSpreadsheetDataSource;
 import services.UxDataSource;
 import views.html.blank;
 import views.html.graph;
@@ -14,7 +13,7 @@ import views.html.graph;
 
 public class Application extends Controller {
 
-  UxDataSource spreadsheetService = new GoogleUxDataSource();
+  UxDataSource spreadsheetService = new GoogleSpreadsheetDataSource();
 
   public Result show(String spreadsheetUrl) {
     if (isPresent(spreadsheetUrl)) {

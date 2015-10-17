@@ -7,7 +7,7 @@ public class Url {
   private String url;
 
   public Url(String url) {
-    this.url = url;
+    this.url = url.trim();
   }
 
   public String getUrl() {
