@@ -34,13 +34,13 @@ public class Application extends Controller {
         UxData data = spreadsheetService.readUxData(url);
         return ok(graph.render(url, data));
       }
-      return badRequest(blank.render(Option.apply(url.getValidationError())));
+      return badRequest(blank.render(spreadsheetUrl, Option.apply(url.getValidationError())));
     } catch(RuntimeException e) {
-      return badRequest(blank.render(Option.apply(e.getLocalizedMessage())));
+      return badRequest(blank.render(spreadsheetUrl, Option.apply(e.getLocalizedMessage())));
     }
   }
 
   private Result showBlank() {
-    return ok(blank.render(Option.<String>empty()));
+    return ok(blank.render("", Option.<String>empty()));
   }
 }

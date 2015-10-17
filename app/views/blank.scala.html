@@ -1,6 +1,6 @@
-@(errorMessage: Option[String] = None)
+@(spreadsheetUrl: String = "", errorMessage: Option[String] = None)
 
-@page(errorMessage = errorMessage) {
+@page(spreadsheetUrl = spreadsheetUrl, errorMessage = errorMessage) {
   <script type='text/javascript'>
     var data = {
       labels: [

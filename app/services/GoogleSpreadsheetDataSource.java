@@ -12,7 +12,6 @@ import models.Url;
 import models.UxData;
 
 import java.io.IOException;
-import java.io.UncheckedIOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -44,7 +43,7 @@ public class GoogleSpreadsheetDataSource implements UxDataSource {
       list = listFeed.getEntries();
 
     } catch (ServiceException | IOException e) {
-      throw new DataSourceException("Unable to read document: " + spreadsheetUrl, e);
+      throw new DataSourceException("Kan inte läsa dokumentet", e);
     }
 
     if (list.size() > 0) {
@@ -61,7 +60,7 @@ public class GoogleSpreadsheetDataSource implements UxDataSource {
       }
       return new UxData(labels, rows);
     }
-    throw new DataSourceException("Not enough data in document: " + spreadsheetUrl);
+    throw new DataSourceException("Dokumentet saknar data");
   }
 
   static String extractKey(Url googleSpreadsheetUrl) {
@@ -70,7 +69,7 @@ public class GoogleSpreadsheetDataSource implements UxDataSource {
     if (keyMatcher.matches()) {
       return keyMatcher.group(1);
     } else {
-      throw new IllegalArgumentException("Not a Google Spreadsheet URL: " + googleSpreadsheetUrl);
+      throw new IllegalArgumentException("Länken anger inte ett Google Kalkylark");
     }
   }
 }
