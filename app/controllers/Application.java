@@ -28,12 +28,15 @@ public class Application extends Controller {
   }
 
   private Result showGraph(String spreadsheetUrl) {
-    Url url = new Url(spreadsheetUrl);
-    if(url.isValid()) {
-      UxData data = spreadsheetService.readUxData(url);
-      return ok(graph.render(url, data));
-    } else {
+    try {
+      Url url = new Url(spreadsheetUrl);
+      if (url.isValid()) {
+        UxData data = spreadsheetService.readUxData(url);
+        return ok(graph.render(url, data));
+      }
       return badRequest(blank.render(Option.apply(url.getValidationError())));
+    } catch(RuntimeException e) {
+      return badRequest(blank.render(Option.apply(e.getLocalizedMessage())));
     }
   }
 

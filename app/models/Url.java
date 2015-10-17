@@ -30,4 +30,9 @@ public class Url {
   public boolean isValid() {
     return getValidationError() == null;
   }
+
+  @Override
+  public String toString() {
+    return url;
+  }
 }

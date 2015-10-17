@@ -12,6 +12,7 @@ import models.Url;
 import models.UxData;
 
 import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,6 +28,7 @@ public class GoogleSpreadsheetDataSource implements UxDataSource {
 
   @Override
   public UxData readUxData(Url spreadsheetUrl) {
+    List<ListEntry> list;
     try {
       SpreadsheetService service = new SpreadsheetService(APP_NAME);
 
@@ -39,37 +41,36 @@ public class GoogleSpreadsheetDataSource implements UxDataSource {
       ListQuery listQuery = new ListQuery(worksheetEntry.getListFeedUrl());
 
       ListFeed listFeed = service.query(listQuery, ListFeed.class);
-      List<ListEntry> list = listFeed.getEntries();
-
-      if(list.size() > 0) {
-        List<String> labels = new ArrayList<>(list.get(0).getCustomElements().getTags());
-        labels.remove(0);
-        Map<String, List<Double>> rows = new HashMap<>();
-        for (ListEntry row : list) {
-          String category = row.getTitle().getPlainText();
-          List<Double> scores = new ArrayList<>();
-          for (String label : labels) {
-            scores.add(Double.parseDouble(row.getCustomElements().getValue(label).replace(',','.')));
-          }
-          rows.put(category, scores);
-        }
-        return new UxData(labels, rows);
-      } else {
-        throw new RuntimeException("Not enough data in document");
-      }
+      list = listFeed.getEntries();
 
     } catch (ServiceException | IOException e) {
-      throw new RuntimeException("Unable to read document: " + spreadsheetUrl, e);
+      throw new DataSourceException("Unable to read document: " + spreadsheetUrl, e);
     }
+
+    if (list.size() > 0) {
+      List<String> labels = new ArrayList<>(list.get(0).getCustomElements().getTags());
+      labels.remove(0);
+      Map<String, List<Double>> rows = new HashMap<>();
+      for (ListEntry row : list) {
+        String category = row.getTitle().getPlainText();
+        List<Double> scores = new ArrayList<>();
+        for (String label : labels) {
+          scores.add(Double.parseDouble(row.getCustomElements().getValue(label).replace(',', '.')));
+        }
+        rows.put(category, scores);
+      }
+      return new UxData(labels, rows);
+    }
+    throw new DataSourceException("Not enough data in document: " + spreadsheetUrl);
   }
 
   static String extractKey(Url googleSpreadsheetUrl) {
     Pattern keyPattern = Pattern.compile("^https://docs.google.com/\\S*spreadsheets/\\w*/(\\S+)/.*");
     Matcher keyMatcher = keyPattern.matcher(googleSpreadsheetUrl.getUrl());
-    if(keyMatcher.matches()) {
+    if (keyMatcher.matches()) {
       return keyMatcher.group(1);
     } else {
-      throw new IllegalArgumentException("Not a Google Spreadsheet URL");
+      throw new IllegalArgumentException("Not a Google Spreadsheet URL: " + googleSpreadsheetUrl);
     }
   }
 }
