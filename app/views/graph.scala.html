@@ -1,21 +1,33 @@
 @(spreadsheetUrl: Url, uxData: UxData)
 
+@colors = @{
+  Stream.continually(
+    scala.List("rgba(14,175,74,",
+      "rgba(23,91,156,",
+      "rgba(241,150,19,",
+      "rgba(241,58,19,",
+      "rgba(2,93,36,",
+      "rgba(4,44,83,",
+      "rgba(128,77,3,",
+      "rgba(128,25,3,")).flatten
+}
+
 @page(spreadsheetUrl.getUrl) {
 
   <script type='text/javascript'>
     var data = {
       labels: @Html(play.libs.Json.toJson(uxData.getLabels).toString),
       datasets: [
-        @for(label <- uxData.getDataRows.keySet()) {
+        @for(lblCol <- uxData.getDataRows.keySet() zip colors) {
           {
-            label: "@label",
-            data: @Html(play.libs.Json.toJson(uxData.getDataRows.get(label)).toString),
-            fillColor: "rgba(212,149, 28,0.5)",
-            strokeColor: "rgba(212,149, 28,1)",
-            pointColor: "rgba(212,149, 28,1)",
+            label: "@lblCol._1",
+            data: @Html(play.libs.Json.toJson(uxData.getDataRows.get(lblCol._1)).toString),
+            fillColor: "@lblCol._2 0.5)",
+            strokeColor: "@lblCol._2 1)",
+            pointColor: "@lblCol._2 1)",
             pointStrokeColor: "#fff",
             pointHighlightFill: "#fff",
-            pointHighlightStroke: "rgba(212,149, 28,1)"
+            pointHighlightStroke: "@lblCol._2 1)"
           },
         }
       ]
@@ -32,8 +44,10 @@
       {
         pointLabelFontFamily : "arial, verdana, sans-serif",
         pointLabelFontSize : 16,
-        scaleShowLabels : true
+        scaleShowLabels : true,
+        legendTemplate : "<span class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><span ><span class=\"label\" style=\"background-color:<%=datasets[i].strokeColor%>\"><%if(datasets[i].label){%><%=datasets[i].label%><%}%></span></span> <%}%></span>"
       }
     );
+    $("#uxLegend").append(radarChart.generateLegend())
   </script>
 }
