@@ -11,6 +11,7 @@ libraryDependencies ++= Seq(
   "org.webjars" % "jquery" % "2.1.4",
   "org.webjars" % "bootstrap" % "3.3.5",
   "org.webjars" % "chartjs" % "1.0.2",
+  "org.webjars" % "html2canvas" % "0.4.1",
   "com.google.api-client" % "google-api-client" % "1.20.0",
   "com.google.http-client" % "google-http-client-jackson2" % "1.20.0",
   "com.google.gdata" % "core" % "1.47.1",

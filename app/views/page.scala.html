@@ -13,6 +13,7 @@
     <script type='text/javascript' src='@routes.Assets.versioned("lib/jquery/jquery.min.js")'></script>
     <script type='text/javascript' src='@routes.Assets.versioned("lib/bootstrap/js/bootstrap.min.js")'></script>
     <script type='text/javascript' src='@routes.Assets.versioned("lib/chartjs/Chart.js")'></script>
+    <script type='text/javascript' src='@routes.Assets.versioned("lib/html2canvas/html2canvas.js")'></script>
   </head>
   <body>
     <div class="container">
@@ -32,14 +33,14 @@
       <div class="panel panel-default large-space-above">
         <div class="panel-heading">
           <h3 class="panel-title">
-            <button type="button" class="btn btn-default btn-xs" onclick="exportCanvasAsPNG('uxChart', 'export.png')">
+            <button type="button" class="btn btn-default btn-xs" onclick="exportImage()">
               <span class="glyphicon glyphicon-picture"></span> Spara
             </button>
           </h3>
         </div>
-        <div class="panel-body">
+        <div class="panel-body" id="uxImage">
           <canvas id="uxChart"></canvas>
-          <div id="uxLegend" class="text-center"></div>
+          <div id="uxLegend" class="small-space-above text-center"></div>
         </div>
       </div>
       @body
@@ -58,21 +59,23 @@
     </footer>
 
     <script>
-      function exportCanvasAsPNG(id, fileName) {
-        var canvasElement = document.getElementById(id);
-        var MIME_TYPE = "image/png";
-        var imgURL = canvasElement.toDataURL(MIME_TYPE);
+      function exportImage() {
+        html2canvas($("#uxImage"), {
+          onrendered: function(canvas) {
+            var MIME_TYPE = "image/png";
+            var imgURL = canvas.toDataURL(MIME_TYPE);
 
-        var dlLink = document.createElement('a');
-        dlLink.download = fileName;
-        dlLink.href = imgURL;
-        dlLink.dataset.downloadurl = [MIME_TYPE, dlLink.download, dlLink.href].join(':');
+            var dlLink = document.createElement('a');
+            dlLink.download = "MeasuringUx-export.png";
+            dlLink.href = imgURL;
+            dlLink.dataset.downloadurl = [MIME_TYPE, dlLink.download, dlLink.href].join(':');
 
-        document.body.appendChild(dlLink);
-        dlLink.click();
-        document.body.removeChild(dlLink);
+            document.body.appendChild(dlLink);
+            dlLink.click();
+            document.body.removeChild(dlLink);
+          }
+        });
       }
-
     </script>
 
   </body>
