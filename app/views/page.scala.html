@@ -31,13 +31,18 @@
       }
 
       <div class="panel panel-default large-space-above">
-        <div class="panel-heading">
-          <h3 class="panel-title">
-            <button type="button" class="btn btn-default btn-xs" onclick="exportImage()">
-              <span class="glyphicon glyphicon-picture"></span> Spara
-            </button>
-          </h3>
-        </div>
+        @if(errorMessage.isEmpty) {
+          <div class="panel-heading">
+            <h3 class="panel-title">
+              <button type="button" class="btn btn-default btn-xs" onclick="exportImage()">
+                <span class="glyphicon glyphicon-picture"></span> Spara
+              </button>
+              <a href="@spreadsheetUrl" class="btn btn-default btn-xs" target="_blank">
+                <span class="glyphicon glyphicon-th"></span> Öppna kalkylark
+              </a>
+            </h3>
+          </div>
+        }
         <div class="panel-body" id="uxImage">
           <canvas id="uxChart"></canvas>
           <div id="uxLegend" class="small-space-above text-center"></div>
