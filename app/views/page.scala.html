@@ -30,11 +30,11 @@
       </form>
 
       @if(errorMessage.isDefined) {
-        <div class="alert alert-danger small-space-above" role="alert">@errorMessage.get</div>
+        <div class="alert alert-danger small-space-above" role="alert">Problem: @errorMessage.get</div>
       }
 
       <div class="panel panel-default large-space-above">
-        @if(errorMessage.isEmpty) {
+        @if(errorMessage.isEmpty && spreadsheetUrl.length>0) {
           <div class="panel-heading">
             <h3 class="panel-title">
               <button type="button" class="btn btn-default btn-xs" onclick="exportImage()">
