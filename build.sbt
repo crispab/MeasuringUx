@@ -15,6 +15,8 @@ libraryDependencies ++= Seq(
   "com.google.api-client" % "google-api-client" % "1.20.0",
   "com.google.http-client" % "google-http-client-jackson2" % "1.20.0",
   "com.google.gdata" % "core" % "1.47.1",
+  "com.newrelic.agent.java" % "newrelic-agent" % "3.21.0",
+  "com.newrelic.agent.java" % "newrelic-api" % "3.21.0",
   javaJdbc,
   cache,
   javaWs,
