@@ -7,6 +7,7 @@ import com.google.gdata.data.spreadsheet.ListEntry;
 import com.google.gdata.data.spreadsheet.ListFeed;
 import com.google.gdata.data.spreadsheet.WorksheetEntry;
 import com.google.gdata.data.spreadsheet.WorksheetFeed;
+import com.google.gdata.util.RedirectRequiredException;
 import com.google.gdata.util.ServiceException;
 import models.Url;
 import models.UxData;
@@ -42,8 +43,10 @@ public class GoogleSpreadsheetDataSource implements UxDataSource {
       ListFeed listFeed = service.query(listQuery, ListFeed.class);
       list = listFeed.getEntries();
 
+    } catch (RedirectRequiredException r) {
+      throw new DataSourceException("Kan inte läsa dokumentet: inloggning krävs", r);
     } catch (ServiceException | IOException e) {
-      throw new DataSourceException("Kan inte läsa dokumentet", e);
+      throw new DataSourceException("Kan inte läsa dokumentet: " + e.getLocalizedMessage(), e);
     }
 
     if (list.size() > 0) {

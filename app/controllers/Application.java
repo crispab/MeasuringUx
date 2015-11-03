@@ -2,6 +2,7 @@ package controllers;
 
 import models.Url;
 import models.UxData;
+import play.Logger;
 import play.mvc.Controller;
 import play.mvc.Result;
 import scala.Option;
@@ -36,6 +37,7 @@ public class Application extends Controller {
       }
       return badRequest(blank.render(spreadsheetUrl, Option.apply(url.getValidationError())));
     } catch(RuntimeException e) {
+      Logger.warn(e.getLocalizedMessage(), e);
       return badRequest(blank.render(spreadsheetUrl, Option.apply(e.getLocalizedMessage())));
     }
   }
