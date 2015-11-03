@@ -23,6 +23,7 @@
       <h1>Användarupplevelsemätning</h1>
       <form class="max-width form-inline" action="@routes.Application.show()" method="get">
         <label for="spreadsheetUrl" class="pull-left small-space-above">Google kalkylark: </label>
+        <a href="#" class="pull-right help" data-toggle="modal" data-target="#help"><span class="glyphicon glyphicon-question-sign"></span></a>
         <button type="submit" class="btn btn-primary pull-right">Läs in</button>
         <div class="fill-remainder">
           <input type="url" class="form-control" id="spreadsheetUrl" name="spreadsheetUrl" placeholder="https://docs.google.com/..." value="@spreadsheetUrl" required="">
@@ -30,7 +31,7 @@
       </form>
 
       @if(errorMessage.isDefined) {
-        <div class="alert alert-danger small-space-above" role="alert">Problem: @errorMessage.get</div>
+        <div class="alert alert-danger small-space-above" role="alert">@errorMessage.get</div>
       }
 
       <div class="panel panel-default large-space-above">
@@ -52,6 +53,36 @@
         </div>
       </div>
       @body
+    </div>
+
+    <div class="modal fade" id="help" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Hjälp: Göra ett Google kalkylark läsbart för MeasuringUx</h4>
+          </div>
+          <div class="modal-body">
+            <p>
+              MeasuringUx kan bara läsa Google Kalkylark som är publika för alla på hela internet.
+            </p>
+            <p>
+              För att säkerställa att dokumentet är läsbart, gör så här:
+              <ol>
+                <li>Öppna ditt Google Kalkylark i webbläsaren</li>
+                <li>Gå till <code>Arkiv->Publicera på webben...</code></li>
+                <li>Välj <code>Länk</code>-fliken (oftast redan vald från början)</li>
+                <li>Markera <code>Hela dokumentet</code> och <code>Webbsida</code></li>
+                <li>Klicka på knappen <code>Publicera</code></li>
+              </ol>
+              Nu är dokumentet läsbart för alla på nätet.
+            </p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
+          </div>
+        </div>
+      </div>
     </div>
 
     <footer>
