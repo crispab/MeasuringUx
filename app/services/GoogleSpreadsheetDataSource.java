@@ -30,19 +30,14 @@ public class GoogleSpreadsheetDataSource implements UxDataSource {
   public UxData readUxData(Url spreadsheetUrl) {
     List<ListEntry> list;
     try {
-      SpreadsheetService service = new SpreadsheetService(APP_NAME);
-
       URL url = FeedURLFactory.getDefault().getWorksheetFeedUrl(extractKey(spreadsheetUrl), "public", "full");
-
+      SpreadsheetService service = new SpreadsheetService(APP_NAME);
       WorksheetFeed feed = service.getFeed(url, WorksheetFeed.class);
       List<WorksheetEntry> worksheetList = feed.getEntries();
       WorksheetEntry worksheetEntry = worksheetList.get(0);
-
-      ListQuery listQuery = new ListQuery(worksheetEntry.getListFeedUrl());
-
-      ListFeed listFeed = service.query(listQuery, ListFeed.class);
+      URL listFeedUrl = worksheetEntry.getListFeedUrl();
+      ListFeed listFeed = service.getFeed(listFeedUrl, ListFeed.class);
       list = listFeed.getEntries();
-
     } catch (RedirectRequiredException r) {
       throw new DataSourceException("Kan inte läsa dokumentet: inloggning krävs", r);
     } catch (ServiceException | IOException e) {
